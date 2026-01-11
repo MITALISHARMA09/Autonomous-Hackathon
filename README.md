@@ -1,133 +1,73 @@
-# 🏥 Autonomous Health Record Intelligence & Insurance Assistant
+# React + TypeScript + Vite
 
-## 🚀 Overview
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Healthcare data and medical insurance processes are complex, manual, and error-prone. Patients store reports in multiple formats (PDFs, images, paper) and often lack clarity on insurance eligibility, claim status, and required documentation.
+Currently, two official plugins are available:
 
-This project introduces an **AI-powered autonomous agent** that:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-* Digitizes and organizes medical records
-* Extracts meaningful insights from reports
-* Integrates medical data with **insurance claim workflows**
-* Assists users throughout the insurance lifecycle
+## React Compiler
 
----
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 🎯 Problem Statement
+## Expanding the ESLint configuration
 
-Patients face difficulties in:
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-* Managing scattered medical records
-* Understanding insurance coverage and eligibility
-* Preparing correct documents for insurance claims
-* Tracking claim status and approvals
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-Hospitals and insurers face:
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-* Incomplete or incorrect claim submissions
-* Delays due to manual verification
-* Lack of structured patient data
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
----
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-## 💡 Solution
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-An **Autonomous Health Record Intelligence & Organization Agent** that:
-
-* Acts as a centralized medical data manager
-* Uses AI to understand reports and policies
-* Bridges the gap between healthcare data and insurance systems
-
----
-
-## 🧠 Key Features
-
-### 📂 Medical Record Management
-
-* Upload medical reports (PDF, image, scanned documents)
-* OCR-based text extraction
-* Automatic categorization (Lab Reports, Prescriptions, Discharge Summaries, Bills)
-* Timeline-based health history
-
-### 🤖 AI-Powered Intelligence
-
-* NLP-based medical entity extraction (diagnosis, medicines, procedures)
-* Report summarization in simple language
-* Alerts for missing or inconsistent records
-
-### 🧾 Medical Insurance Integration
-
-* Upload insurance policy documents
-* AI-based mapping of treatments to policy coverage
-* Claim eligibility check
-* Required document checklist generation
-* Claim readiness score
-* Claim status tracking (manual / semi-automated)
-
-### 🔐 Security & Privacy
-
-* User-controlled access
-* Encrypted storage (design-level)
-* Role-based visibility (Patient / Insurer / Hospital – future scope)
-
----
-
-## 🏗️ System Architecture (High Level)
-
-* **Frontend:** React (Web Interface)
-* **Backend:** Flask / FastAPI
-* **AI Layer:** NLP + OCR + Rule-based Insurance Mapping
-* **Database:** Structured Medical Records + Metadata
-* **Integration Layer:** Insurance workflow logic
-
----
-
-## 🛠️ Tech Stack
-
-* **Frontend:** React, HTML, CSS
-* **Backend:** Python (Flask / FastAPI)
-* **AI/NLP:** Transformers, spaCy, OCR (Tesseract)
-* **Database:** MongoDB / PostgreSQL
-* **Tools:** LangChain (future), Cloud Storage (optional)
-
----
-
-## 📌 Use Cases
-
-* Patients managing long-term medical histories
-* Users filing insurance claims faster
-* Hospitals preparing claim-ready documents
-* Insurance providers reducing claim rejection rates
-
----
-
-## 🧪 AI Checkpoint Highlights
-
-* Autonomous document understanding
-* Medical + Insurance domain intelligence
-* Human-in-the-loop design
-* Real-world healthcare impact
-
----
-
-## 📈 Future Enhancements
-
-* Direct insurer API integration
-* Fraud detection using anomaly detection
-* Voice-based assistant for elderly users
-* Multilingual support for Indian languages
-* Government health scheme integration (Ayushman Bharat)
-
----
-
-## 👩‍💻 Team
-
-**Project Lead:** Mitali Sharma
-**Hackathon:** 36-Hour Build
-**Domain:** Healthcare × AI × Insurance
-
----
-
-## 📜 License
-
-This project is developed for hackathon and academic purposes.
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
